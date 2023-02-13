@@ -21,6 +21,7 @@ boardDisplay = [0, 0, 0, 0, 0, 0, 0, 0], #this will be used to draw out where th
 [0, 0, 0, 0, 0, 0, 0, 0], 
 [0, 0, 0, 0, 0, 0, 0, 0]
 
+print("hi")
                
 #we'll need a way to verify things on a coordinate basis if anything is detectable diagonally, horizontally, or vertically
 #perhaps that can be solved by an equation of rise over run?
