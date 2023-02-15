@@ -28,10 +28,7 @@ def displayBoard():
     for row in boardDisplay: 
         print(row)
 
-def checkVertically(y1, x1): #our passed variables are the current iterated spot's x and y coordinates
-    #initialize the x and y positions of coordinate 2
-    y2 = -1
-    x2 = -1
+def addQueensPositionToList():
     yIterator = 0
     xIterator = 0 #initialize out iterators
     for row in boardDisplay:
@@ -41,21 +38,39 @@ def checkVertically(y1, x1): #our passed variables are the current iterated spot
             xIterator += 1
             if col == 1: #then look for the places on the board where the piece is equal to 1 as that is where a queen has been placed.
                 temporaryListOfQueenPositions.append([yIterator, xIterator])
-                print("a queen exists here")
-                
 
-def checkHorizontally():
-    pass
+def checkVertically(y1): #our passed variables are the current iterated spot's x and y coordinates
+    for queen in temporaryListOfQueenPositions:
+        y2 = queen[1]
+        if y2 == y1:
+            pass #okay now what LOL
 
-def checkDiagonally():
-    pass
+def checkHorizontally(x1):
+    for queen in temporaryListOfQueenPositions:
+        x2 = queen[0]
+        if x2 == x1:
+            pass
+
+def checkDiagonally(x1, y1):
+    for queen in temporaryListOfQueenPositions:
+        x2 = queen[0]
+        y2 = queen[1]
+        
+
+def checkAllDirections(x1, y1):
+    checkVertically(y1)
+    checkHorizontally(x1)
+    checkDiagonally(x1, y1)
 
 def main():
-    print("omg SLAYYYYY")
+    print("Showing what the board currently looks like")
     displayBoard()
-    print("hiiii")
-    checkVertically(2, 4)       
+    print("Now we will add the found queens coordinates to a tuple list")
+    addQueensPositionToList()
     print(temporaryListOfQueenPositions)
+    print("Now we will check vertically if the pieces would have contact with each other")
+    checkVertically(2, 4)       
+    print("")
 
 main()    
 #we'll need a way to verify things on a coordinate basis if anything is detectable diagonally, horizontally, or vertically
