@@ -13,15 +13,15 @@ queen6 = [-1, -1]
 queen7 = [-1, -1]
 
 boardDisplay = [[0, 0, 0, 0, 0, 0, 0, 0], #this will be used to draw out where the queens will be and what the board will look like
-[0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 1], 
-[0, 0, 1, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 1, 0, 0, 0, 1, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0]]
+                [0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 1], 
+                [0, 0, 1, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0],       
+                [0, 1, 0, 0, 0, 1, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0]]
 
-temporaryListOfQueenPositions = []
+temporaryListOfQueenPositions = [] 
 
 def displayBoard():
     #this will be used to print the final layout of how the board will look and we can use it generally to figure out what our list looks at any specific time
@@ -39,8 +39,9 @@ def checkVertically(y1, x1): #our passed variables are the current iterated spot
         xIterator = 0 #at every new row, the x goes back to 0 
         for col in row:
             xIterator += 1
-            if row[col] == 1: #then look for the places on the board where the piece is equal to 1 as that is where a queen has been placed.
-                temporaryListOfQueenPositions.append([xIterator, yIterator])
+            if col == 1: #then look for the places on the board where the piece is equal to 1 as that is where a queen has been placed.
+                temporaryListOfQueenPositions.append([yIterator, xIterator])
+                print("a queen exists here")
                 
 
 def checkHorizontally():
