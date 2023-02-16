@@ -14,11 +14,11 @@ queen7 = [-1, -1]
 
 boardDisplay = [[0, 0, 0, 0, 0, 0, 0, 0], #this will be used to draw out where the queens will be and what the board will look like
                 [0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 1], 
-                [0, 0, 1, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0], 
                 [0, 0, 0, 0, 0, 0, 0, 0], 
                 [0, 0, 0, 0, 0, 0, 0, 0],       
-                [0, 1, 0, 0, 0, 1, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0], 
                 [0, 0, 0, 0, 0, 0, 0, 0]]
 
 temporaryListOfQueenPositions = [] 
@@ -39,28 +39,56 @@ def addQueensPositionToList():
             if col == 1: #then look for the places on the board where the piece is equal to 1 as that is where a queen has been placed.
                 temporaryListOfQueenPositions.append([yIterator, xIterator])
 
+def placeQueens():
+    for i in range(0, len(boardDisplay) - 1):
+        for j in range(0, len(boardDisplay[i]) - 1):
+            if
+            boardDisplay[i][j] = 1
+            
+                
+
+
+    '''
+    for i in range(0, 7):
+        print("meow", i)
+
+    meow 0
+    meow 1
+    meow 2
+    meow 3
+    meow 4
+    meow 5
+    meow 6
+    '''
+
 def checkVertically(y1): #our passed variables are the current iterated spot's x and y coordinates
     for queen in temporaryListOfQueenPositions:
         y2 = queen[1]
-        if y2 == y1:
-            pass #okay now what LOL
+        if y2 == y1: #if it shares a y-value. that isnt allowed
+            return False #okay now what LOL
+        else:
+            return True
 
 def checkHorizontally(x1):
     for queen in temporaryListOfQueenPositions:
         x2 = queen[0]
-        if x2 == x1:
-            pass
+        if x2 == x1: #if it shares an x-value, that isnt allowed
+            return False
+        else:
+            return True
 
 def checkDiagonally(x1, y1):
     for queen in temporaryListOfQueenPositions:
         x2 = queen[0]
         y2 = queen[1]
-        
+        if((y2 - y1)/(x2 - x1) == 1 or (y2 - y1)/(x2 - x1) == -1): #perfect diagonals have a slope value of -1 or 1
+            return False
+        else:
+            return True
 
 def checkAllDirections(x1, y1):
-    checkVertically(y1)
-    checkHorizontally(x1)
-    checkDiagonally(x1, y1)
+    if checkVertically(y1) == True and checkHorizontally(x1) == True and checkDiagonally(x1, y1) == True:
+        print("we good")
 
 def main():
     print("Showing what the board currently looks like")
@@ -68,9 +96,10 @@ def main():
     print("Now we will add the found queens coordinates to a tuple list")
     addQueensPositionToList()
     print(temporaryListOfQueenPositions)
-    print("Now we will check vertically if the pieces would have contact with each other")
-    checkVertically(2, 4)       
-    print("")
+    print("Now we will check the directions to see if we're good")   
+
+    placeQueens()
+    
 
 main()    
 #we'll need a way to verify things on a coordinate basis if anything is detectable diagonally, horizontally, or vertically
