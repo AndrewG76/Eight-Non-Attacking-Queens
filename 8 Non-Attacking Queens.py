@@ -28,7 +28,7 @@ def displayBoard():
     for row in boardDisplay: 
         print(row)
 
-def addQueensPositionToList():
+def addQueensPositionToList(): #function that lets us take note of all the positions where there is a queen
     yIterator = 0
     xIterator = 0 #initialize out iterators
     for row in boardDisplay:
@@ -40,10 +40,11 @@ def addQueensPositionToList():
                 temporaryListOfQueenPositions.append([yIterator, xIterator])
 
 def placeQueens():
-    for i in range(0, len(boardDisplay) - 1):
-        for j in range(0, len(boardDisplay[i]) - 1):
-            if
-            boardDisplay[i][j] = 1
+    for i in range(0, len(boardDisplay)):
+        for j in range(0, len(boardDisplay[i])):
+            if checkAllDirections(i, j) == True: #we first check to see if there's any other queen in a diagonal, vertical, or horizontal manner
+                boardDisplay[i][j] = 1 #if nothing comes up and we're good, we are allowed to place a queen there 
+                addQueensPositionToList() #then we call this function to update whenever we have a new queen placed
             
                 
 
@@ -64,6 +65,7 @@ def placeQueens():
 def checkVertically(y1): #our passed variables are the current iterated spot's x and y coordinates
     for queen in temporaryListOfQueenPositions:
         y2 = queen[1]
+        print("we are checking the passed", y1, "against queen's", y2)
         if y2 == y1: #if it shares a y-value. that isnt allowed
             return False #okay now what LOL
         else:
@@ -87,18 +89,23 @@ def checkDiagonally(x1, y1):
             return True
 
 def checkAllDirections(x1, y1):
+    #print("we're checking", x1, "and", y1)
     if checkVertically(y1) == True and checkHorizontally(x1) == True and checkDiagonally(x1, y1) == True:
         print("we good")
+        return True
+
+    else:
+        print("we not good yet")
 
 def main():
     print("Showing what the board currently looks like")
     displayBoard()
-    print("Now we will add the found queens coordinates to a tuple list")
-    addQueensPositionToList()
-    print(temporaryListOfQueenPositions)
+    #print("Now we will add the found queens coordinates to a tuple list")
+    #addQueensPositionToList()
+    #print(temporaryListOfQueenPositions)
     print("Now we will check the directions to see if we're good")   
 
-    placeQueens()
+    #placeQueens()
     
 
 main()    
