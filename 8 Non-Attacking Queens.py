@@ -4,9 +4,9 @@
 
 
 queen0 = [-1, -1]
-queen1 = [-1, -2]
+queen1 = [-1, -1]
 queen2 = [-1, -1]
-queen3 = [-3, -1]
+queen3 = [-1, -1]
 queen4 = [-1, -1]
 queen5 = [-1, -1]
 queen6 = [-1, -1]
@@ -37,9 +37,33 @@ def addQueensPositionToList(): #function that lets us take note of all the posit
         for col in row:
             xIterator += 1
             if col == 1: #then look for the places on the board where the piece is equal to 1 as that is where a queen has been placed.
-                if temporaryListOfQueenPositions.has([yIterator, xIterator]): #we check to see if it would be unique adding it into the list
+                if temporaryListOfQueenPositions.__contains__([yIterator, xIterator]): #we check to see if it would be unique adding it into the list
                     pass #if we notice the same tuple, then we don't add that new queen
                 temporaryListOfQueenPositions.append([yIterator, xIterator]) #to get here means that it was totally unique and now we will be adding it into the list
+    print(temporaryListOfQueenPositions)
+
+def checkAllDirections(x1, y1): #this is gonna be autocalled by the placeQueens function checking
+    print("the function was called")
+    for i in range(0, len(temporaryListOfQueenPositions)):
+        print(temporaryListOfQueenPositions[i])
+        x2 = temporaryListOfQueenPositions[i][0]
+        y2 = temporaryListOfQueenPositions[i][1]
+        print("we are checking the passed", x1, "and", y1, "against queen's", x2, "and", y2)
+        if x2 - x1 == 0 and x1 - x2 == 0: #we need this to stop it early or else we'll end up creating a division by zero error
+            #and worst that happens, this means that the other queen detected was directly above it which is why the slope isn't 0 but instead would be infinity upwards
+            print("false, vertically spotted") 
+            return False
+        else:
+            mValue = (y2 - y1)/(x2 - x1)
+        print("here is their slope value m:", mValue)
+        if(mValue == 1 or mValue == -1): #perfect diagonals have a slope value of -1 or 1
+            print("false, diagonally spotted")
+            return False
+        if(mValue == 0): #then this one exists because if slope is 0, then that means it's horizontally related to it
+            print("false, horizontally spotted")
+            return False
+    print("true")
+    return True #you can only get here if all the diagonals, verticals, and horizontals were checked and we see none of them had a slope of -1, 1, 0, or was about to divide by 0
 
 def placeQueens():
     for i in range(0, len(boardDisplay)):
@@ -47,7 +71,10 @@ def placeQueens():
             if checkAllDirections(i, j) == True: #we first check to see if there's any other queen in a diagonal, vertical, or horizontal manner
                 boardDisplay[i][j] = 1 #if nothing comes up and we're good, we are allowed to place a queen there 
                 addQueensPositionToList() #then we call this function to update whenever we have a new queen placed
-            
+                print("we found a valid spot so here's what it looks like")
+                displayBoard()
+    print("after running through every iteration, here's how our final board looks")
+    displayBoard()
                 
 
 
@@ -63,67 +90,18 @@ def placeQueens():
     meow 5
     meow 6
     '''
-
-def checkVertically(y1): #our passed variables are the current iterated spot's x and y coordinates
-    #print("the function was called")
-    for i in range(0, len(temporaryListOfQueenPositions)):
-        print(temporaryListOfQueenPositions[i])
-        y2 = temporaryListOfQueenPositions[i][1]
-        print("we are checking the passed", y1, "against queen's", y2)
-        if y2 == y1: #if it shares a y-value. that isnt allowed
-            print("false")
-            return False
-    print("true")
-    return True #getting to this point means that allllll of the queens were checked and we were good since it would return false if we were wrong
-
-def checkHorizontally(x1):
-    print("the function was called")
-    for i in range(0, len(temporaryListOfQueenPositions)):
-        print(temporaryListOfQueenPositions[i])
-        x2 = temporaryListOfQueenPositions[i][0]
-        print("we are checking the passed", x1, "against queen's", x2)
-        if x2 == x1: #if it shares an x-value, that isnt allowed
-            print("false")
-            return False        
-    print("true")
-    return True #getting to this point means that all the queens were checked and we were good or else it would give us a false
-
-def checkDiagonally(x1, y1):
-    print("the function was called")
-    for i in range(0, len(temporaryListOfQueenPositions)):
-        print(temporaryListOfQueenPositions[i])
-        x2 = temporaryListOfQueenPositions[i][0]
-        y2 = temporaryListOfQueenPositions[i][1]
-        print("we are checking the passed", x1, "and", y1, "against queen's", x2, "and", y2)
-        mValue = (y2 - y1)/(x2 - x1)
-        print("here is their slope value m:", mValue)
-        if(mValue == 1 or mValue == -1): #perfect diagonals have a slope value of -1 or 1
-            print("false")
-            return False
-    print("true")
-    return True #you can only get here if all the diagonals were checked and we see none of them had a slope of -1 or 1
-
-def checkAllDirections(x1, y1):
-    #print("we're checking", x1, "and", y1)
-    if checkVertically(y1) == True and checkHorizontally(x1) == True and checkDiagonally(x1, y1) == True:
-        print("we good")
-        return True
-
-    else:
-        print("we not good yet")
-
 def main():
     #print("Showing what the board currently looks like")
     #displayBoard()
     #checkVertically(-2)
     #checkHorizontally(-2)
-    checkDiagonally(3, 7)
+    #checkAllDirections(4, 5)
     #print("Now we will add the found queens coordinates to a tuple list")
     #addQueensPositionToList()
     #print(temporaryListOfQueenPositions)
     #print("Now we will check the directions to see if we're good")   
 
-    #placeQueens()
+    placeQueens()
     
 
 main()    
